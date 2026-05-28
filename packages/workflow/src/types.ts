@@ -49,5 +49,7 @@ export type ExecutionContext = {
   runId: string;
   workflowId: string;
   tenantId: string;
+  nodeId: string;
+  state: WorkflowState;
   logger: Logger;
 };

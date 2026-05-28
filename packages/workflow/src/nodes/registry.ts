@@ -4,8 +4,8 @@ import type { ExecutionContext } from "../types";
 
 export type NodeHandler<TInput = unknown, TOutput = unknown> = {
   type: string;
-  inputSchema: z.ZodType<TInput>;
-  outputSchema: z.ZodType<TOutput>;
+  inputSchema: z.ZodTypeAny;
+  outputSchema: z.ZodTypeAny;
   execute: (input: TInput, ctx: ExecutionContext) => Promise<TOutput>;
 };
 

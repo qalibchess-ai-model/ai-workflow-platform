@@ -1,5 +1,17 @@
 {
   "permissions": {
-    "allow": ["Bash(pnpm --filter @workflow/db typecheck)", "Bash(pnpm --filter @workflow/db test)"]
+    "allow": [
+      "Bash(pnpm --filter @workflow/db typecheck)",
+      "Bash(pnpm --filter @workflow/db test)",
+      "Bash(pnpm --filter @workflow/workflow typecheck)",
+      "Bash(pnpm --filter @workflow/worker typecheck)",
+      "Bash(pnpm --filter @workflow/workflow lint)",
+      "Bash(pnpm --filter @workflow/worker lint)",
+      "Bash(env)",
+      "Bash(curl -sf http://localhost:8787/health)",
+      "Bash(curl -s http://localhost:8787/api/inngest)",
+      "Bash(npx --yes inngest-cli@latest dev -u http://localhost:8787/api/inngest --no-discovery)",
+      "Bash(curl -sf http://localhost:8288)"
+    ]
   }
 }
