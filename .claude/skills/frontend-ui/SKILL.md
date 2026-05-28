@@ -76,7 +76,7 @@ Node-ları register et:
 const nodeTypes = {
   "ai.generate": AIGenerateNode,
   "http.request": HttpRequestNode,
-  "gmail.send": GmailSendNode,
+  "gmail.sendMessage": GmailSendNode,
   // ...
 };
 ```
@@ -129,21 +129,24 @@ export function CreateWorkflowForm() {
 ## Data fetching
 
 ### Server Component-də
+
 ```typescript
 const data = await db.workflows.findById(id);
 ```
 
 ### Client Component-də
+
 TanStack Query istifadə et:
 
 ```typescript
 const { data, isLoading } = useQuery({
   queryKey: ["workflow", id],
-  queryFn: () => fetch(`/api/workflows/${id}`).then(r => r.json()),
+  queryFn: () => fetch(`/api/workflows/${id}`).then((r) => r.json()),
 });
 ```
 
 ### Mutations
+
 Server Actions üstündür:
 
 ```typescript

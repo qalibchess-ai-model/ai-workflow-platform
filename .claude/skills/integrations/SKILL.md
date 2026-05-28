@@ -24,10 +24,7 @@ export const nango = new Nango({
   secretKey: process.env.NANGO_SECRET_KEY!,
 });
 
-export async function getConnection(
-  tenantId: string,
-  provider: string
-): Promise<NangoConnection> {
+export async function getConnection(tenantId: string, provider: string): Promise<NangoConnection> {
   return await nango.getConnection(provider, tenantId);
 }
 ```
@@ -65,7 +62,7 @@ const SendEmailOutput = z.object({
 });
 
 export async function sendEmail(
-  input: z.infer<typeof SendEmailInput>
+  input: z.infer<typeof SendEmailInput>,
 ): Promise<z.infer<typeof SendEmailOutput>> {
   const validated = SendEmailInput.parse(input);
 
@@ -89,7 +86,7 @@ export async function sendEmail(
 // packages/integrations/src/gmail/nodes.ts
 export const gmailNodes: NodeDefinition[] = [
   {
-    type: "gmail.send",
+    type: "gmail.sendMessage",
     label: "Send Email",
     category: "Email",
     inputSchema: SendEmailInput.omit({ tenantId: true }),
@@ -217,7 +214,7 @@ const limiters: Record<string, Ratelimit> = {
 export async function rateLimitedCall<T>(
   provider: string,
   tenantId: string,
-  fn: () => Promise<T>
+  fn: () => Promise<T>,
 ): Promise<T> {
   const limiter = limiters[provider];
   if (!limiter) return fn();
@@ -234,6 +231,7 @@ export async function rateLimitedCall<T>(
 ## DO və DON'T
 
 ### DO
+
 - Hər API çağırışında tenantId yoxla (cross-tenant data leak qarşısını al)
 - Zod ilə həm input həm output validate et
 - Webhook signature-ları MƏCBURİ yoxla
@@ -241,6 +239,7 @@ export async function rateLimitedCall<T>(
 - Hər inteqrasiya üçün dokumentasiya yaz
 
 ### DON'T
+
 - API key-ləri DB-də plain text saxlama (Nango bunu özü edir, sən etmə)
 - Webhook-larda uzun-running task et — Inngest-ə göndər
 - Customer data-nı log-da çap etmə

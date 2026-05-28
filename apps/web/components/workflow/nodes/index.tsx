@@ -154,7 +154,7 @@ export const NODE_TYPES = {
   condition: ConditionNode,
   transform: TransformNode,
   noop: NoopNode,
-  "gmail.send": GmailSendNode,
-  "gmail.list": GmailListNode,
+  "gmail.sendMessage": GmailSendNode,
+  "gmail.listMessages": GmailListNode,
   default: DefaultNode,
 } as const;

@@ -49,7 +49,7 @@ describe("registerGmailNodes", () => {
     expect(() => registerGmailNodes()).not.toThrow();
   });
 
-  it("exposes exactly the gmail.send and gmail.list types", () => {
+  it("exposes exactly the gmail.sendMessage and gmail.listMessages types", () => {
     expect(gmailHandlers.map((h) => h.type).sort()).toEqual(
       [GMAIL_LIST_TYPE, GMAIL_SEND_TYPE].sort(),
     );
@@ -61,7 +61,7 @@ describe("gmail workflow handlers", () => {
     registerGmailNodes();
   });
 
-  it("gmail.send injects tenantId from ExecutionContext", async () => {
+  it("gmail.sendMessage injects tenantId from ExecutionContext", async () => {
     nangoCallMock.mockResolvedValueOnce({ id: "m1", threadId: "t1" });
     const handler = getHandler(GMAIL_SEND_TYPE);
 
@@ -80,7 +80,7 @@ describe("gmail workflow handlers", () => {
     expect(call.tenantId).toBe(TENANT);
   });
 
-  it("gmail.send input schema does not include tenantId", () => {
+  it("gmail.sendMessage input schema does not include tenantId", () => {
     const handler = getHandler(GMAIL_SEND_TYPE);
     const parsed = handler.inputSchema.safeParse({
       tenantId: "leaked-from-user",
@@ -96,7 +96,7 @@ describe("gmail workflow handlers", () => {
     }
   });
 
-  it("gmail.list injects tenantId from ExecutionContext", async () => {
+  it("gmail.listMessages injects tenantId from ExecutionContext", async () => {
     nangoCallMock.mockResolvedValueOnce({
       messages: [],
       resultSizeEstimate: 0,

@@ -29,11 +29,13 @@ export const executeWorkflow = inngest.createFunction(
   { event: "workflow/execute.requested" },
   async ({ event, step, logger }) => {
     // 1. Validate input (HƏMİŞƏ)
-    const input = z.object({
-      workflowId: z.string().uuid(),
-      tenantId: z.string().uuid(),
-      triggerData: z.record(z.unknown()),
-    }).parse(event.data);
+    const input = z
+      .object({
+        workflowId: z.string().uuid(),
+        tenantId: z.string().uuid(),
+        triggerData: z.record(z.unknown()),
+      })
+      .parse(event.data);
 
     // 2. Load workflow definition (idempotent)
     const workflow = await step.run("load-workflow", async () => {
@@ -50,13 +52,14 @@ export const executeWorkflow = inngest.createFunction(
     }
 
     return { success: true, finalState: state };
-  }
+  },
 );
 ```
 
 ## Vacib qaydalar
 
 ### DO
+
 - Hər `step.run()` üçün unikal ID istifadə et
 - Long timeout-lar üçün `step.sleep()` istifadə et (saatlar/günlər)
 - Tenant izolyasiyası üçün `concurrency.key` istifadə et
@@ -64,6 +67,7 @@ export const executeWorkflow = inngest.createFunction(
 - Logger-də structured data göndər (`logger.info({ ... })`)
 
 ### DON'T
+
 - `step.run()` xaricində side effect etmə (database write, API call)
 - Random ID-lər `step.run()` ID-si kimi istifadə etmə (idempotent olmur)
 - `setTimeout/setInterval` istifadə etmə — `step.sleep()` istifadə et
@@ -96,18 +100,19 @@ Hər node tipinin öz handler-i var (`packages/workflow/src/nodes/`):
 type NodeHandler = (
   node: WorkflowNode,
   state: WorkflowState,
-  ctx: ExecutionContext
+  ctx: ExecutionContext,
 ) => Promise<WorkflowState>;
 
 const handlers: Record<NodeType, NodeHandler> = {
   "ai.generate": handleAIGenerate,
   "http.request": handleHttpRequest,
-  "gmail.send": handleGmailSend,
+  "gmail.sendMessage": handleGmailSend,
   // ...
 };
 ```
 
 Yeni node tipi əlavə etdikdə:
+
 1. `packages/workflow/src/nodes/<type>.ts` faylı yarat
 2. Zod schema ilə input/output validate et
 3. `packages/workflow/src/nodes/index.ts`-də qeydiyyatdan keçir

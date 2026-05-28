@@ -5,8 +5,8 @@ import { listMessages, sendEmail } from "./actions";
 import { ListMessagesInput, ListMessagesOutput, SendEmailInput, SendEmailOutput } from "./schemas";
 import type { NodeDefinition } from "../noop/nodes";
 
-export const GMAIL_SEND_TYPE = "gmail.send";
-export const GMAIL_LIST_TYPE = "gmail.list";
+export const GMAIL_SEND_TYPE = "gmail.sendMessage";
+export const GMAIL_LIST_TYPE = "gmail.listMessages";
 
 const SendEmailParams = SendEmailInput.omit({ tenantId: true });
 const ListMessagesParams = ListMessagesInput.omit({ tenantId: true });

@@ -37,7 +37,7 @@ tenantId + provider üzərindən deşifrə edib avtomatik istifadə edəcək.
 
 Əgər workflow yuxarıdakı servislərdən birini tələb edirsə:
   1. params-də həmin servis üçün key/token sahəsi YARATMA
-  2. node tipi (məsələn "notion.create_page") credential-i avtomatik istifadə edəcək
+  2. seçdiyin node tipi (registry-dəki dəqiq ad) credential-i avtomatik istifadə edəcək
   3. requiredCredentials siyahısında istifadə olunan provider-ləri qeyd et (məsələn ["notion", "slack"])
      ki, istifadəçi hansı credential-ları əlavə etməli olduğunu bilsin.
 
