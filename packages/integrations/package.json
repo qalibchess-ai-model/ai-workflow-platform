@@ -31,6 +31,7 @@
     "@nangohq/node": "^0.70.5",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.38.0",
+    "@workflow/workflow": "workspace:*",
     "zod": "^3.23.8"
   }
 }

@@ -1,3 +1,4 @@
+import { registerGmailNodes } from "@workflow/integrations";
 import { listHandlers, registerBuiltinNodes } from "@workflow/workflow";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
@@ -6,8 +7,13 @@ export type AvailableNode = {
   inputSchema: Record<string, unknown>;
 };
 
-export function getAvailableNodes(): AvailableNode[] {
+function ensureRegistered(): void {
   registerBuiltinNodes();
+  registerGmailNodes();
+}
+
+export function getAvailableNodes(): AvailableNode[] {
+  ensureRegistered();
   return listHandlers().map((handler) => ({
     type: handler.type,
     inputSchema: zodToJsonSchema(handler.inputSchema, {
@@ -18,6 +24,6 @@ export function getAvailableNodes(): AvailableNode[] {
 }
 
 export function getAvailableNodeTypes(): string[] {
-  registerBuiltinNodes();
+  ensureRegistered();
   return listHandlers().map((handler) => handler.type);
 }

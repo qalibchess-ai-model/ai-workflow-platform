@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.99.0",
+    "@workflow/integrations": "workspace:*",
     "langfuse": "^3.38.20",
     "zod": "^3.23.8",
     "zod-to-json-schema": "^3.25.2"

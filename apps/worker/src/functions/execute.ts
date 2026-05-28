@@ -14,6 +14,7 @@ import {
   type WorkflowNode,
   type WorkflowState,
 } from "@workflow/workflow";
+import { registerGmailNodes } from "@workflow/integrations";
 
 import { inngest } from "../lib/inngest";
 import {
@@ -25,6 +26,7 @@ import {
 } from "../lib/repository";
 
 registerBuiltinNodes();
+registerGmailNodes();
 
 type DelayParams = { durationMs: number };
 

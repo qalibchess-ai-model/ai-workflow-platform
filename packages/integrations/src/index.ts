@@ -17,16 +17,29 @@ export {
   listMCPNodes,
   getMCPNode,
 } from "./mcp/registry";
-export type {
-  MCPConnectionConfig,
-  MCPNodeDefinition,
-  MCPTool,
-} from "./mcp/types";
+export type { MCPConnectionConfig, MCPNodeDefinition, MCPTool } from "./mcp/types";
 
 export { withRateLimit } from "./rate-limit";
 
 export { noopNodes } from "./providers/noop/nodes";
 export type { NodeDefinition } from "./providers/noop/nodes";
+
+export {
+  GMAIL_PROVIDER_KEY,
+  SendEmailInput,
+  SendEmailOutput,
+  ListMessagesInput,
+  ListMessagesOutput,
+  GmailMessageRef,
+} from "./providers/gmail/schemas";
+export { sendEmail, listMessages } from "./providers/gmail/actions";
+export {
+  gmailNodes,
+  gmailHandlers,
+  registerGmailNodes,
+  GMAIL_SEND_TYPE,
+  GMAIL_LIST_TYPE,
+} from "./providers/gmail/nodes";
 
 export {
   IntegrationError,
