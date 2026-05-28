@@ -1,0 +1,16 @@
+{
+  "name": "@workflow/config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "tsconfig.base.json",
+    "eslint-base.js",
+    "prettier.config.js"
+  ],
+  "scripts": {
+    "lint": "echo \"no lint in config\"",
+    "typecheck": "echo \"no typecheck in config\"",
+    "test": "echo \"no tests in config\""
+  }
+}
