@@ -3,14 +3,26 @@
   "version": "0.0.0",
   "private": true,
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./env": "./env.ts",
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./eslint-base": "./eslint-base.js",
+    "./prettier.config": "./prettier.config.js"
+  },
   "files": [
     "tsconfig.base.json",
     "eslint-base.js",
-    "prettier.config.js"
+    "prettier.config.js",
+    "env.ts",
+    "index.js"
   ],
   "scripts": {
     "lint": "echo \"no lint in config\"",
     "typecheck": "echo \"no typecheck in config\"",
     "test": "echo \"no tests in config\""
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
   }
 }

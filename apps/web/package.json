@@ -11,16 +11,18 @@
     "test": "echo \"no tests yet\""
   },
   "dependencies": {
+    "@sentry/nextjs": "^10.54.0",
     "@workflow/ui": "workspace:*",
     "next": "15.1.3",
+    "posthog-js": "^1.376.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@workflow/config": "workspace:*",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@workflow/config": "workspace:*",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.1.3",
