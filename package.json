@@ -15,6 +15,9 @@
     "test:e2e": "playwright test",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",
+    "db:generate": "pnpm --filter @workflow/db db:generate",
+    "db:migrate": "pnpm --filter @workflow/db db:migrate",
+    "db:studio": "pnpm --filter @workflow/db db:studio",
     "format": "prettier --write \"**/*.{ts,tsx,md,json,yaml,yml}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json,yaml,yml}\"",
     "prepare": "husky"

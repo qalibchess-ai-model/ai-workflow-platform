@@ -1,7 +1,7 @@
 import { EventSchemas, Inngest } from "inngest";
-import {
+import type {
   EVENT_WORKFLOW_EXECUTE_REQUESTED,
-  type WorkflowExecuteRequested,
+  WorkflowExecuteRequested,
 } from "@workflow/workflow";
 
 type Events = {
