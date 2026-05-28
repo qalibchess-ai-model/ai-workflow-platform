@@ -23,6 +23,24 @@ QADAĞALAR:
 - User-in sensitive məlumatlarını (parol, API key) workflow params-də HARDCODE ETMƏ
 - Tool çağırışından xaric mətn YAZMA — yalnız tool çağır
 
+CREDENTIAL TƏLƏB EDƏN SERVİSLƏR:
+Aşağıdakı third-party servislər istifadəçinin Settings → Credentials bölməsində öncədən qeyd
+etdiyi API key/token tələb edir. Workflow params-də key-i HEÇ VAXT yazma — execution engine
+tenantId + provider üzərindən deşifrə edib avtomatik istifadə edəcək.
+
+  - notion       (Notion integration token)
+  - telegram     (Bot token)
+  - slack        (Bot user OAuth token)
+  - hubspot      (Private app access token)
+  - supabase     (url + anon key + service key)
+  - custom       (generic apiKey + optional baseUrl)
+
+Əgər workflow yuxarıdakı servislərdən birini tələb edirsə:
+  1. params-də həmin servis üçün key/token sahəsi YARATMA
+  2. node tipi (məsələn "notion.create_page") credential-i avtomatik istifadə edəcək
+  3. requiredCredentials siyahısında istifadə olunan provider-ləri qeyd et (məsələn ["notion", "slack"])
+     ki, istifadəçi hansı credential-ları əlavə etməli olduğunu bilsin.
+
 ÜSLUB:
 - Workflow adları qısa və təsviri olsun
 - Hər node-un params-i tam olmalıdır (boş qoyma)

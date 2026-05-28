@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { generateWorkflow, WorkflowGenerationError } from "@workflow/ai";
+import { describeRequiredCredentials, type CredentialRequirement } from "@workflow/integrations";
 import type { WorkflowDefinition } from "@workflow/workflow";
 
 import { requireAuth } from "@/lib/auth";
@@ -11,7 +12,11 @@ const InputSchema = z.object({
 });
 
 export type GenerateWorkflowResult =
-  | { ok: true; workflow: WorkflowDefinition }
+  | {
+      ok: true;
+      workflow: WorkflowDefinition;
+      requiredCredentials: CredentialRequirement[];
+    }
   | { ok: false; error: string; code?: string };
 
 export async function generateWorkflowAction(
@@ -26,7 +31,8 @@ export async function generateWorkflowAction(
 
   try {
     const workflow = await generateWorkflow({ userPrompt: parsed.data.prompt });
-    return { ok: true, workflow };
+    const requiredCredentials = describeRequiredCredentials(workflow);
+    return { ok: true, workflow, requiredCredentials };
   } catch (err) {
     if (err instanceof WorkflowGenerationError) {
       return { ok: false, error: err.message, code: err.code };

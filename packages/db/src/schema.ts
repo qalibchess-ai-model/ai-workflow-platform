@@ -74,6 +74,29 @@ export const runs = pgTable(
   }),
 );
 
+export const credentials = pgTable(
+  "credentials",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    tenantId: uuid("tenant_id")
+      .references(() => tenants.id, { onDelete: "cascade" })
+      .notNull(),
+    provider: text("provider").notNull(),
+    label: text("label").notNull(),
+    encryptedValue: text("encrypted_value").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    tenantIdx: index("credentials_tenant_id_idx").on(table.tenantId),
+    tenantProviderLabelIdx: uniqueIndex("credentials_tenant_provider_label_idx").on(
+      table.tenantId,
+      table.provider,
+      table.label,
+    ),
+  }),
+);
+
 export const stepLogs = pgTable(
   "step_logs",
   {
@@ -102,5 +125,7 @@ export type Run = typeof runs.$inferSelect;
 export type NewRun = typeof runs.$inferInsert;
 export type StepLog = typeof stepLogs.$inferSelect;
 export type NewStepLog = typeof stepLogs.$inferInsert;
+export type Credential = typeof credentials.$inferSelect;
+export type NewCredential = typeof credentials.$inferInsert;
 
 export type RunStatus = (typeof runStatusEnum.enumValues)[number];

@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Plus, Workflow as WorkflowIcon } from "lucide-react";
+import { KeyRound, LayoutDashboard, Plus, Workflow as WorkflowIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -16,6 +16,7 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/workflows/new", label: "Yeni workflow", icon: Plus },
+  { href: "/settings/credentials", label: "Credentials", icon: KeyRound },
 ];
 
 export function Sidebar(): React.JSX.Element {

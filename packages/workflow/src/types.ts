@@ -45,6 +45,20 @@ export type Logger = {
   error: (...args: unknown[]) => void;
 };
 
+/**
+ * Resolver passed by the worker so handlers can fetch a per-tenant credential
+ * at execution time. The implementation lives outside @workflow/workflow to
+ * avoid pulling DB/integration deps into this package.
+ *
+ * Returns the decrypted, schema-validated credential value for the current
+ * tenant. Throws when the credential is missing — callers should let the
+ * error propagate so the node fails fast with a clear message.
+ */
+export type LoadCredential = <T = Record<string, unknown>>(
+  provider: string,
+  label?: string,
+) => Promise<T>;
+
 export type ExecutionContext = {
   runId: string;
   workflowId: string;
@@ -52,4 +66,5 @@ export type ExecutionContext = {
   nodeId: string;
   state: WorkflowState;
   logger: Logger;
+  loadCredential?: LoadCredential;
 };

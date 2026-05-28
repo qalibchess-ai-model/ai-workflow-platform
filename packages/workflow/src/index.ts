@@ -1,4 +1,5 @@
 export * from "./types";
+export type { LoadCredential } from "./types";
 export * from "./validate";
 export * from "./events";
 export * from "./topology";

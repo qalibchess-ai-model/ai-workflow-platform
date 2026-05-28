@@ -14,7 +14,8 @@ import {
   type WorkflowNode,
   type WorkflowState,
 } from "@workflow/workflow";
-import { registerGmailNodes } from "@workflow/integrations";
+import { registerGmailNodes, resolveCredential } from "@workflow/integrations";
+import { getDb } from "@workflow/db";
 
 import { inngest } from "../lib/inngest";
 import {
@@ -113,6 +114,10 @@ export const executeWorkflow = inngest.createFunction(
             nodeId: node.id,
             state,
             logger,
+            loadCredential: async <T = Record<string, unknown>>(
+              provider: string,
+              label?: string,
+            ): Promise<T> => resolveCredential<T>({ db: getDb(), tenantId, provider, label }),
           };
 
           const interpolated = interpolate(node.params, state);

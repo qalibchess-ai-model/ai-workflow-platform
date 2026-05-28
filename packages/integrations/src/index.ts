@@ -47,3 +47,36 @@ export {
   WebhookSignatureError,
   RateLimitError,
 } from "./errors";
+
+export {
+  CREDENTIAL_PROVIDERS,
+  CredentialNotFoundError,
+  detectRequiredCredentials,
+  describeRequiredCredentials,
+  CustomCredentialSchema,
+  HubspotCredentialSchema,
+  NotionCredentialSchema,
+  PROVIDER_CREDENTIAL_SCHEMAS,
+  PROVIDER_METADATA,
+  SlackCredentialSchema,
+  SupabaseCredentialSchema,
+  TelegramCredentialSchema,
+  getCredentialSchema,
+  isKnownProvider,
+  parseCredentialValue,
+  resolveCredential,
+} from "./credentials";
+
+export type { CredentialRequirement } from "./credentials";
+
+export type {
+  CredentialProvider,
+  CustomCredential,
+  HubspotCredential,
+  NotionCredential,
+  ProviderFieldSpec,
+  ProviderMeta,
+  SlackCredential,
+  SupabaseCredential,
+  TelegramCredential,
+} from "./credentials";
