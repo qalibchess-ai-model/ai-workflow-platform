@@ -8,6 +8,13 @@
       "when": 1779962975215,
       "tag": "0000_naive_black_tarantula",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1779967035057,
+      "tag": "0001_far_sue_storm",
+      "breakpoints": true
     }
   ]
 }

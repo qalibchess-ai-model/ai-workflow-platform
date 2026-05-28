@@ -1,3 +1,4 @@
 export * from "./schema";
-export { getDb, type Database } from "./client";
+export { closeDb, getDb, type Database, type DbConnectionOptions } from "./client";
+export { tenantQueries, workflowQueries, runQueries, stepLogQueries } from "./queries";
 export { and, asc, desc, eq, inArray, sql } from "drizzle-orm";

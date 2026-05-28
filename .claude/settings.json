@@ -1,0 +1,5 @@
+{
+  "permissions": {
+    "allow": ["Bash(pnpm --filter @workflow/db typecheck)", "Bash(pnpm --filter @workflow/db test)"]
+  }
+}
