@@ -6,6 +6,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import {
   Background,
+  BackgroundVariant,
   Controls,
   MiniMap,
   ReactFlow,
@@ -19,7 +20,7 @@ import {
   type NodeChange,
   type ReactFlowInstance,
 } from "@xyflow/react";
-import { Loader2, Save } from "lucide-react";
+import { Loader2, MousePointerClick, Save } from "lucide-react";
 import type { WorkflowDefinition } from "@workflow/workflow";
 
 import { Button } from "@/components/ui/button";
@@ -68,7 +69,7 @@ function toFlowEdges(definition: WorkflowDefinition): Edge[] {
     source: edge.from,
     target: edge.to,
     label: edge.condition,
-    animated: false,
+    animated: true,
   }));
 }
 
@@ -114,18 +115,21 @@ function NodeInspector({
   }, [node.id, node.data.params]);
 
   return (
-    <div className="flex w-80 flex-col gap-3 border-l bg-card p-4 overflow-y-auto">
+    <div className="flex w-80 shrink-0 flex-col gap-4 overflow-y-auto border-l border-border-subtle bg-surface p-5">
       <div>
-        <h3 className="text-sm font-semibold">Node inspector</h3>
-        <p className="text-xs text-muted-foreground">{node.data.nodeType}</p>
+        <div className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          Inspector
+        </div>
+        <h3 className="mt-1 text-h3 font-semibold">{node.data.nodeType}</h3>
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="node-id">ID</Label>
+        <Label htmlFor="node-id">Node ID</Label>
         <Input
           id="node-id"
           value={node.id}
           onChange={(e) => onChange({ ...node, id: e.target.value })}
+          className="font-mono text-[13px]"
         />
       </div>
 
@@ -141,6 +145,7 @@ function NodeInspector({
               data: { ...node.data, nodeType: e.target.value },
             })
           }
+          className="font-mono text-[13px]"
         />
       </div>
 
@@ -148,7 +153,7 @@ function NodeInspector({
         <Label htmlFor="node-params">Params (JSON)</Label>
         <Textarea
           id="node-params"
-          className="h-48 font-mono text-xs"
+          className="h-56 font-mono text-[12px] leading-relaxed"
           value={paramsText}
           onChange={(e) => {
             setParamsText(e.target.value);
@@ -168,8 +173,21 @@ function NodeInspector({
             }
           }}
         />
-        {paramsError ? <p className="text-xs text-destructive">{paramsError}</p> : null}
+        {paramsError ? <p className="text-[12px] text-destructive">{paramsError}</p> : null}
       </div>
+    </div>
+  );
+}
+
+function InspectorEmpty(): React.JSX.Element {
+  return (
+    <div className="hidden w-80 shrink-0 flex-col items-center justify-center gap-3 border-l border-border-subtle bg-surface p-6 text-center md:flex">
+      <div className="flex size-10 items-center justify-center rounded-full bg-hover text-muted-foreground">
+        <MousePointerClick className="size-4" />
+      </div>
+      <p className="max-w-[200px] text-[12px] text-muted-foreground">
+        Bir node seçin və ya kətanda boş sahəyə klik edib seçimi sıfırlayın.
+      </p>
     </div>
   );
 }
@@ -197,6 +215,7 @@ function EditorInner({ workflowId, initialName, definition }: EditorProps): Reac
           {
             ...connection,
             id: `e-${connection.source}-${connection.target}-${eds.length}`,
+            animated: true,
           },
           eds,
         ),
@@ -242,24 +261,34 @@ function EditorInner({ workflowId, initialName, definition }: EditorProps): Reac
   );
 
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex items-center justify-between gap-3 border-b bg-card px-4 py-3">
+    <div className="flex flex-1 flex-col overflow-hidden animate-fade-in">
+      <div className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-border-subtle bg-surface px-5">
         <div className="flex flex-1 items-center gap-3">
-          <Label htmlFor="workflow-name" className="text-xs text-muted-foreground">
-            Ad
+          <Label
+            htmlFor="workflow-name"
+            className="text-[11px] uppercase tracking-wider text-muted-foreground"
+          >
+            Workflow
           </Label>
           <Input
             id="workflow-name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="max-w-md"
+            className="h-9 max-w-md font-medium"
           />
-          <span className="text-xs text-muted-foreground">
-            {nodes.length} node · {edges.length} edge
-          </span>
+          <div className="ml-2 hidden items-center gap-3 text-[12px] text-muted-foreground sm:flex">
+            <span className="inline-flex items-center gap-1.5">
+              <span className="size-1.5 rounded-full bg-primary" />
+              {nodes.length} node
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="size-1.5 rounded-full bg-muted-foreground" />
+              {edges.length} edge
+            </span>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          {error ? <span className="text-xs text-destructive">{error}</span> : null}
+        <div className="flex items-center gap-3">
+          {error ? <span className="text-[12px] text-destructive">{error}</span> : null}
           <Button onClick={handleSave} disabled={saving} size="sm">
             {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
             {workflowId ? "Yadda saxla" : "Yarat"}
@@ -268,7 +297,7 @@ function EditorInner({ workflowId, initialName, definition }: EditorProps): Reac
       </div>
 
       <div className="flex flex-1 overflow-hidden">
-        <div className="flex-1 bg-muted/30">
+        <div className="flex-1 bg-background">
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -283,18 +312,22 @@ function EditorInner({ workflowId, initialName, definition }: EditorProps): Reac
             }}
             fitView
             proOptions={{ hideAttribution: true }}
+            defaultEdgeOptions={{ animated: true }}
           >
-            <Background gap={16} />
-            <Controls />
-            <MiniMap pannable zoomable className="!bg-card" />
+            <Background variant={BackgroundVariant.Dots} gap={20} size={1.2} color="currentColor" />
+            <Controls showInteractive={false} />
+            <MiniMap
+              pannable
+              zoomable
+              maskColor="hsl(var(--background) / 0.7)"
+              nodeColor={() => "hsl(var(--muted-foreground))"}
+            />
           </ReactFlow>
         </div>
         {selectedNode ? (
           <NodeInspector node={selectedNode} onChange={handleNodeUpdate} />
         ) : (
-          <div className="hidden w-80 shrink-0 border-l bg-card p-4 text-xs text-muted-foreground md:block">
-            Bir node seçin və ya kətanda boş sahəyə klik edib seçimi sıfırlayın.
-          </div>
+          <InspectorEmpty />
         )}
       </div>
     </div>

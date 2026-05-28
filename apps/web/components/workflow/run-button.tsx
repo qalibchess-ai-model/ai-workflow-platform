@@ -22,11 +22,11 @@ export function RunButton({ workflowId }: { workflowId: string }): React.JSX.Ele
 
   return (
     <div className="flex items-center gap-2">
-      <Button onClick={handleRun} disabled={pending} size="sm" variant="secondary">
-        {pending ? <Loader2 className="size-4 animate-spin" /> : <Play className="size-4" />}
+      {error ? <span className="text-[11px] text-destructive">{error}</span> : null}
+      <Button onClick={handleRun} disabled={pending} size="sm">
+        {pending ? <Loader2 className="size-3.5 animate-spin" /> : <Play className="size-3.5" />}
         Run
       </Button>
-      {error ? <span className="text-xs text-destructive">{error}</span> : null}
     </div>
   );
 }

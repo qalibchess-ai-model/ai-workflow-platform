@@ -41,7 +41,7 @@ export function HttpRequestNode({ data, selected }: NodeProps): React.JSX.Elemen
     <BaseNode
       title={d.label ?? "HTTP Request"}
       icon={<Globe className="size-3.5" />}
-      accent="bg-sky-500"
+      accentClass="bg-info/15 text-info"
       selected={selected}
     >
       {summarize(d.params, ["method", "url"])}
@@ -55,7 +55,7 @@ export function DelayNode({ data, selected }: NodeProps): React.JSX.Element {
     <BaseNode
       title={d.label ?? "Delay"}
       icon={<Clock className="size-3.5" />}
-      accent="bg-amber-500"
+      accentClass="bg-warning/15 text-warning"
       selected={selected}
     >
       {summarize(d.params, ["durationMs"])}
@@ -69,7 +69,7 @@ export function ConditionNode({ data, selected }: NodeProps): React.JSX.Element 
     <BaseNode
       title={d.label ?? "Condition"}
       icon={<GitBranch className="size-3.5" />}
-      accent="bg-violet-500"
+      accentClass="bg-warning/15 text-warning"
       selected={selected}
     >
       {summarize(d.params, ["expression"])}
@@ -83,7 +83,7 @@ export function TransformNode({ data, selected }: NodeProps): React.JSX.Element 
     <BaseNode
       title={d.label ?? "Transform"}
       icon={<Wrench className="size-3.5" />}
-      accent="bg-emerald-500"
+      accentClass="bg-success/15 text-success"
       selected={selected}
     >
       {summarize(d.params, ["expression"])}
@@ -97,7 +97,7 @@ export function NoopNode({ data, selected }: NodeProps): React.JSX.Element {
     <BaseNode
       title={d.label ?? "Noop"}
       icon={<Circle className="size-3.5" />}
-      accent="bg-slate-500"
+      accentClass="bg-muted-foreground/15 text-muted-foreground"
       selected={selected}
     >
       <NodeField label="type" value={d.nodeType} />
@@ -111,7 +111,7 @@ export function GmailSendNode({ data, selected }: NodeProps): React.JSX.Element 
     <BaseNode
       title={d.label ?? "Gmail · Send"}
       icon={<Mail className="size-3.5" />}
-      accent="bg-rose-500"
+      accentClass="bg-destructive/15 text-destructive"
       selected={selected}
     >
       {summarize(d.params, ["to", "subject"])}
@@ -125,7 +125,7 @@ export function GmailListNode({ data, selected }: NodeProps): React.JSX.Element 
     <BaseNode
       title={d.label ?? "Gmail · List"}
       icon={<Mailbox className="size-3.5" />}
-      accent="bg-pink-500"
+      accentClass="bg-destructive/15 text-destructive"
       selected={selected}
     >
       {summarize(d.params, ["query", "maxResults"])}
@@ -140,7 +140,7 @@ export function DefaultNode({ data, selected }: NodeProps): React.JSX.Element {
     <BaseNode
       title={d.label ?? d.nodeType}
       icon={<Workflow className="size-3.5" />}
-      accent="bg-slate-500"
+      accentClass="bg-primary/15 text-primary"
       selected={selected}
     >
       {summarize(d.params, keys)}

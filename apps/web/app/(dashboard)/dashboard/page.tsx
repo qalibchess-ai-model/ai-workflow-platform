@@ -30,11 +30,15 @@ export default async function DashboardPage(): Promise<React.JSX.Element> {
   const items = await loadWorkflowsWithRuns(tenantId);
 
   return (
-    <div className="container py-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Workflow-larım</h1>
-          <p className="text-sm text-muted-foreground">Cəmi {items.length} workflow.</p>
+    <div className="mx-auto w-full max-w-[1200px] px-6 py-10 animate-fade-in">
+      <div className="flex items-end justify-between gap-4">
+        <div className="space-y-1.5">
+          <h1 className="text-h1 font-semibold tracking-tight">Workflow-larım</h1>
+          <p className="text-[13px] text-muted-foreground">
+            {items.length === 0
+              ? "Hələ heç bir workflow yoxdur."
+              : `Cəmi ${items.length} workflow.`}
+          </p>
         </div>
         <Button asChild>
           <Link href="/workflows/new">
@@ -44,7 +48,7 @@ export default async function DashboardPage(): Promise<React.JSX.Element> {
         </Button>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-8">
         <WorkflowList items={items} />
       </div>
     </div>
