@@ -11,7 +11,10 @@
       "Bash(curl -sf http://localhost:8787/health)",
       "Bash(curl -s http://localhost:8787/api/inngest)",
       "Bash(npx --yes inngest-cli@latest dev -u http://localhost:8787/api/inngest --no-discovery)",
-      "Bash(curl -sf http://localhost:8288)"
+      "Bash(curl -sf http://localhost:8288)",
+      "Bash(break)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:8787/)"
     ]
   }
 }

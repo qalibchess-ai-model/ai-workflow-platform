@@ -1,3 +1,5 @@
+import "./env";
+
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { serve as inngestServe } from "inngest/hono";

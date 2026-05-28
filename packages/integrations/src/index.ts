@@ -21,6 +21,8 @@ export type { MCPConnectionConfig, MCPNodeDefinition, MCPTool } from "./mcp/type
 
 export { withRateLimit } from "./rate-limit";
 
+export { registerAllNodes } from "./register-all";
+
 export { noopNodes } from "./providers/noop/nodes";
 export type { NodeDefinition } from "./providers/noop/nodes";
 

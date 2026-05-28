@@ -110,18 +110,8 @@ async function main(): Promise<void> {
   }
 
   const [
-    { registerBuiltinNodes, getHandler, hasHandler, listHandlers },
-    {
-      registerGmailNodes,
-      registerHubspotNodes,
-      registerNotionNodes,
-      registerSlackNodes,
-      registerSupabaseNodes,
-      registerTelegramNodes,
-      resolveCredential,
-      CredentialNotFoundError,
-      IntegrationError,
-    },
+    { getHandler, hasHandler, listHandlers },
+    { registerAllNodes, resolveCredential, CredentialNotFoundError, IntegrationError },
     { getDb, closeDb },
   ] = await Promise.all([
     import("../packages/workflow/src/index"),
@@ -129,13 +119,7 @@ async function main(): Promise<void> {
     import("../packages/db/src/index"),
   ]);
 
-  registerBuiltinNodes();
-  registerGmailNodes();
-  registerTelegramNodes();
-  registerNotionNodes();
-  registerSupabaseNodes();
-  registerSlackNodes();
-  registerHubspotNodes();
+  registerAllNodes();
 
   if (!hasHandler(args.nodeType)) {
     console.error(`❌ Naməlum node tipi: ${args.nodeType}`);

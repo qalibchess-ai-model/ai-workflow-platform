@@ -1,12 +1,5 @@
-import {
-  registerGmailNodes,
-  registerHubspotNodes,
-  registerNotionNodes,
-  registerSlackNodes,
-  registerSupabaseNodes,
-  registerTelegramNodes,
-} from "@workflow/integrations";
-import { listHandlers, registerBuiltinNodes } from "@workflow/workflow";
+import { registerAllNodes } from "@workflow/integrations";
+import { listHandlers } from "@workflow/workflow";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
 export type AvailableNode = {
@@ -14,18 +7,8 @@ export type AvailableNode = {
   inputSchema: Record<string, unknown>;
 };
 
-function ensureRegistered(): void {
-  registerBuiltinNodes();
-  registerGmailNodes();
-  registerTelegramNodes();
-  registerNotionNodes();
-  registerSupabaseNodes();
-  registerSlackNodes();
-  registerHubspotNodes();
-}
-
 export function getAvailableNodes(): AvailableNode[] {
-  ensureRegistered();
+  registerAllNodes();
   return listHandlers().map((handler) => ({
     type: handler.type,
     inputSchema: zodToJsonSchema(handler.inputSchema, {
@@ -36,6 +19,6 @@ export function getAvailableNodes(): AvailableNode[] {
 }
 
 export function getAvailableNodeTypes(): string[] {
-  ensureRegistered();
+  registerAllNodes();
   return listHandlers().map((handler) => handler.type);
 }

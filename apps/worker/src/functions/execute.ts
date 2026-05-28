@@ -6,7 +6,6 @@ import {
   WorkflowExecuteRequestedSchema,
   getHandler,
   interpolate,
-  registerBuiltinNodes,
   topologicalOrder,
   validateWorkflow,
   type ExecutionContext,
@@ -14,15 +13,7 @@ import {
   type WorkflowNode,
   type WorkflowState,
 } from "@workflow/workflow";
-import {
-  registerGmailNodes,
-  registerHubspotNodes,
-  registerNotionNodes,
-  registerSlackNodes,
-  registerSupabaseNodes,
-  registerTelegramNodes,
-  resolveCredential,
-} from "@workflow/integrations";
+import { registerAllNodes, resolveCredential } from "@workflow/integrations";
 import { getDb } from "@workflow/db";
 
 import { inngest } from "../lib/inngest";
@@ -34,13 +25,7 @@ import {
   markRunStarted,
 } from "../lib/repository";
 
-registerBuiltinNodes();
-registerGmailNodes();
-registerTelegramNodes();
-registerNotionNodes();
-registerSupabaseNodes();
-registerSlackNodes();
-registerHubspotNodes();
+registerAllNodes();
 
 type DelayParams = { durationMs: number };
 

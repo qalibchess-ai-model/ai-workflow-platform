@@ -3,10 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { workflowQueries } from "@workflow/db";
+import { registerAllNodes } from "@workflow/integrations";
 import { validateWorkflow } from "@workflow/workflow";
 
 import { requireAuth } from "@/lib/auth";
 import { db } from "@/lib/db";
+
+registerAllNodes();
 
 const SaveInputSchema = z.object({
   id: z.string().uuid().optional(),
