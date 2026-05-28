@@ -13,9 +13,14 @@ const DEFAULT_SPEC: LimiterSpec = { tokens: 50, windowSeconds: 1, burst: 50 };
 
 const PROVIDER_LIMITS: Record<string, LimiterSpec> = {
   gmail: { tokens: 250, windowSeconds: 1, burst: 250 },
-  slack: { tokens: 50, windowSeconds: 1, burst: 50 },
+  // Slack tier-based: per-channel `chat.postMessage` is capped at "no more
+  // than 1 message per second per channel". Bucket conservatively at 1/sec
+  // per tenant with a small burst so short spikes don't immediately fail.
+  slack: { tokens: 1, windowSeconds: 1, burst: 5 },
   notion: { tokens: 3, windowSeconds: 1, burst: 3 },
-  hubspot: { tokens: 100, windowSeconds: 10, burst: 100 },
+  hubspot: { tokens: 10, windowSeconds: 1, burst: 10 },
+  telegram: { tokens: 30, windowSeconds: 1, burst: 30 },
+  supabase: { tokens: 20, windowSeconds: 1, burst: 20 },
   noop: { tokens: 1000, windowSeconds: 1, burst: 1000 },
 };
 

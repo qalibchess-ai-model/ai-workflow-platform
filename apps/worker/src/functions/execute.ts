@@ -14,7 +14,15 @@ import {
   type WorkflowNode,
   type WorkflowState,
 } from "@workflow/workflow";
-import { registerGmailNodes, resolveCredential } from "@workflow/integrations";
+import {
+  registerGmailNodes,
+  registerHubspotNodes,
+  registerNotionNodes,
+  registerSlackNodes,
+  registerSupabaseNodes,
+  registerTelegramNodes,
+  resolveCredential,
+} from "@workflow/integrations";
 import { getDb } from "@workflow/db";
 
 import { inngest } from "../lib/inngest";
@@ -28,6 +36,11 @@ import {
 
 registerBuiltinNodes();
 registerGmailNodes();
+registerTelegramNodes();
+registerNotionNodes();
+registerSupabaseNodes();
+registerSlackNodes();
+registerHubspotNodes();
 
 type DelayParams = { durationMs: number };
 

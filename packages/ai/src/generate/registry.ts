@@ -1,4 +1,11 @@
-import { registerGmailNodes } from "@workflow/integrations";
+import {
+  registerGmailNodes,
+  registerHubspotNodes,
+  registerNotionNodes,
+  registerSlackNodes,
+  registerSupabaseNodes,
+  registerTelegramNodes,
+} from "@workflow/integrations";
 import { listHandlers, registerBuiltinNodes } from "@workflow/workflow";
 import { zodToJsonSchema } from "zod-to-json-schema";
 
@@ -10,6 +17,11 @@ export type AvailableNode = {
 function ensureRegistered(): void {
   registerBuiltinNodes();
   registerGmailNodes();
+  registerTelegramNodes();
+  registerNotionNodes();
+  registerSupabaseNodes();
+  registerSlackNodes();
+  registerHubspotNodes();
 }
 
 export function getAvailableNodes(): AvailableNode[] {
