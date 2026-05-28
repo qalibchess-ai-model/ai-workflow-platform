@@ -1,19 +1,11 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
-import { Inngest } from "inngest";
 import { serve as inngestServe } from "inngest/hono";
 
+import { executeWorkflow } from "./functions/execute";
+import { inngest } from "./lib/inngest";
+
 const app = new Hono();
-
-const inngest = new Inngest({ id: "ai-workflow-platform" });
-
-const helloFn = inngest.createFunction(
-  { id: "hello-world" },
-  { event: "demo/hello" },
-  async ({ event }) => {
-    return { message: `Hello, ${event.data?.name ?? "world"}` };
-  },
-);
 
 app.get("/", (c) => c.json({ status: "ok", service: "worker" }));
 app.get("/health", (c) => c.json({ status: "healthy" }));
@@ -21,7 +13,7 @@ app.get("/health", (c) => c.json({ status: "healthy" }));
 app.on(
   ["GET", "POST", "PUT"],
   "/api/inngest",
-  inngestServe({ client: inngest, functions: [helloFn] }),
+  inngestServe({ client: inngest, functions: [executeWorkflow] }),
 );
 
 const port = Number(process.env.PORT ?? 8787);
